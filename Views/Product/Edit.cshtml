@@ -1,0 +1,105 @@
+﻿@model ProductVM
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data" >
+    <div class="border p-3 ">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            <h2 class="text-black pl-3">Изменение продукта</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <input asp-for="Product.Id"  hidden />
+                <div class="form-group row pt-4">
+                    <div class="col-4">
+                     <label asp-for="Product.Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.Name" class="form-control" />
+                        <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-grop row pt-3">
+                    <div class="col-4">
+                        <label asp-for="Product.Price"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.Price" class="form-control" />
+                        <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-grop row pt-3">
+                    <div class="col-4">
+                        <label asp-for="Product.Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.Description" class="form-control" />
+                        <span asp-validation-for="Product.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-grop row pt-3">
+                    <div class="col-4">
+                        <label asp-for="Product.ShortDesc"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.ShortDesc" class="form-control" />
+                        <span asp-validation-for="Product.ShortDesc" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-grop row pt-3">
+                    <div class="col-4">
+                        <label asp-for="Product.Image"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" multiple name="files"  class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-grop row pt-3">
+                    <div class="col-4">
+                        <label asp-for="Product.CategoryId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-items="@Model.Categories" asp-for="Product.CategoryId" class="form-control">
+                           <option disabled selected>--Выберите категорию--</option>
+                       </select>
+                    </div>
+                </div>
+
+                <div class="form-grop row pt-3">
+                    <div class="col-4">
+                        <label asp-for="Product.ApplicationTypeId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-items="@Model.AppTypes" asp-for="Product.ApplicationTypeId" class="form-control">
+                           <option disabled selected>--Выберите тип--</option>
+                       </select>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-3">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-warning w-100" >Назад</a>
+                        </div>
+                        <div class="col">
+                            <input type="submit" value="Изменить" class="btn btn-primary w-100" />                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                    @* Keep this empty *@
+                    <img src="@WC.ProductImgPath@Model.Product.Image" width="100%" style="border-radius:5px; border:1px solid #bbb" />
+            
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

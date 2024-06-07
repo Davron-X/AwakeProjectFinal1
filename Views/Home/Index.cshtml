@@ -1,0 +1,55 @@
+﻿@model HomeVM
+<style>
+    .custom-left-menu {
+        margin-left: -40px; /* Измените это значение при необходимости */
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-2 custom-left-menu">
+        <div class="d-flex flex-column mb-3 pt-4">
+        <button class="btn  btn-dark filter-button" data-filter="all">Все товары</button>
+        @foreach (var obj in Model.Categories)
+        {
+            <button class="btn btn-outline-secondary filter-button" data-filter="@obj.Name.Replace(' ', '_')">
+                @obj.Name
+            </button>
+        }
+        </div>
+    </div>
+    <br />
+    <div class="col-md-10">
+        <div class="row">
+            @foreach (var prod in Model.Products)
+            {
+                <partial name="_IndividualProductView" model="prod" />
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $(".filter-button").click(function () {
+
+                var value = $(this).attr('data-filter');
+                if (value == "all") {
+                    $('.filter').show('1000');
+                }
+                else {
+                    $(".filter").not('.' + value).hide('3000');
+                    $('.filter').filter('.' + value).show('3000');
+
+                }
+            });
+
+        });
+    </script>
+}

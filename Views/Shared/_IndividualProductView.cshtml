@@ -1,0 +1,22 @@
+﻿@model Product
+
+<div class="col-4 ">
+    <div class="p-0 my-3 border filter @Model.Category.Name.Replace(' ','_')">
+        <div class="card">
+            <img src="@WC.ProductImgPath@Model.Image" class="card-img-top">
+            <div class="card-body">
+                <h3 class="card-title text-success">@Model.Name</h3>
+                <span class="badge badge-light mb-2 ">@Model.Category.Name</span>
+                <p class="card-text">@Html.Raw(Model.ShortDesc)</p>
+                <div class="row">
+                    <div class="col pt-1">
+                        <span style="font-size:23px;">@Model.Price сум</span>
+                    </div>
+                    <div class="col">
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@Model.Id" class="btn btn-success form-control">Детали</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

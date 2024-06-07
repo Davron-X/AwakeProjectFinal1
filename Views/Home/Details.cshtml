@@ -1,0 +1,70 @@
+﻿@model DetailsVM
+
+<!-- content -->
+<form method="post" asp-action="AddToCart" asp-route-id="@Model.Product.Id">
+    <input asp-for="Product.Id" hidden />
+<section class="py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <aside class="col-lg-6">
+                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" >
+                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="@WC.ProductImgPath@Model.Product.Image" />
+                    </a>
+                </div>
+               
+                <!-- thumbs-wrap.// -->
+                <!-- gallery-wrap .end// -->
+            </aside>
+            <main class="col-lg-6">
+                <div class="ps-lg-3">
+                    <h4 class="title text-dark">
+                       @Model.Product.Name                        
+                    </h4>
+
+                    <div class="mb-3">
+                        <span class="h5">@Model.Product.Price</span>
+                        <span class="text-muted">/за ед.</span>
+                    </div>
+
+                    <p>
+                       @Model.Product.Description
+                    </p>
+                    <div class="row">
+                        <dt class="col-3">Тип:</dt>
+                        <dd class="col-9">@Model.Product.ApplicationType.Name</dd>
+
+                        <dt class="col-3">Категория</dt>
+                        <dd class="col-9">@Model.Product.Category.Name</dd>
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-4">
+                       
+                        <!-- col.// -->
+                        <div class="col-md-4 col-6 mb-3">
+                            <label class="mb-2 d-block">Количество</label>
+                            <div class="input-group mb-3" style="width: 170px;">
+                               
+                                <input type="text" asp-for=Product.TempQuantity class="form-control text-center border border-secondary" />
+                               <span asp-validation-for="@Model.Product.TempQuantity" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                     <a asp-action="Index" class="btn btn-primary ">Назад </a>
+                            @if (Model.ExistInCar)
+                            {
+                                <a asp-action="RemoveFromCart" asp-route-id="@Model.Product.Id" class="btn btn-warning">Удалить с корзины </a>
+                            }
+                            else
+                            {
+                             <button type="submit"class="btn btn-success shadow-0 "><i class="me-1 fa fa-shopping-basket"></i>Добавить в корзину</button>
+                            }
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+</form>
+<!-- content -->

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ApplicationType>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Типы</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="ApplicationType" asp-action="Create" class="btn btn-success" >
+                <i class="far fa-plus-square"></i>&nbsp;   Создать новый тип
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-secondary" style="width:100%">
+            <thead class="table-primary">
+                <tr>
+                    <th>
+                        Наименование
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="50%">@obj.Name</td>
+                        <td class="text-center">
+                            <div class="w-25 btn-group" role="group">
+                                <a asp-action="Edit" asp-controller="ApplicationType" asp-route-id="@obj.Id" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                <a asp-action="Delete" asp-controller="ApplicationType" asp-route-id="@obj.Id" class="btn btn-danger"> <i class="fas fa-trash"></i> </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> Нет типов</p>
+    }
+
+</div>
+
+

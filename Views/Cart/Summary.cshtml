@@ -1,0 +1,127 @@
+﻿@model UserProductsVM
+
+<form method="post" asp-action="SummaryPost">
+    <br />
+    <div class="backgroundWhiteBorder">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-dark text-light ml-0 row container">
+                    <div class="col-6">
+                        <i class="fa fa-shopping-cart"></i> &nbsp;
+                        Описание заказа
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-outline-info btn-sm">Вернуться в корзину</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container rounded p-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-7 pb-4">
+                                <div class="row">
+                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-info">Ваши данные:</span>
+                                    </h4>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Имя</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="User.FullName" type="text" class="form-control" />
+                                        <span asp-validation-for="User.FullName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Телефон</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for=User.PhoneNumber type="text" required class="form-control" />
+                                        <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Почта</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="User.Email" type="text" required class="form-control" />
+                                        <span asp-validation-for="User.Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Область</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="User.State" type="text" required class="form-control" />
+                                        <span asp-validation-for="User.State" class="text-danger"></span>
+                                    </div>
+                                </div> <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Город</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="User.City" type="text" required class="form-control" />
+                                        <span asp-validation-for="User.City" class="text-danger"></span>
+                                    </div>
+                                </div> <div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Улица</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="User.StreetAddress" type="text" required class="form-control" />
+                                        <span asp-validation-for="User.StreetAddress" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-5 row">
+                                <div class="col-12">
+                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-info">Детали заказа:</span>
+                                    </h4>
+                                    <ul class="list-group mb-3">
+                                        @{
+                                            double orderTotal = 0.0;
+                                        }
+                                        @for (int i = 0; i < Model.Products.Count(); i++)
+                                        {
+                                            <input type="hidden" asp-for="@Model.Products[i].Id" />
+                                            <input type="hidden" asp-for="@Model.Products[i].Name" />
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div>
+                                                    <h6 class="my-0">@Model.Products[i].Name</h6>
+                                                    <small class="text-muted">Кол-во: @Model.Products[i].TempQuantity</small>
+                                                </div>
+                                                <span class="text-muted">@(Model.Products[i].Price*Model.Products[i].TempQuantity)</span>
+                                            </li>
+                                            orderTotal += Model.Products[i].Price * Model.Products[i].TempQuantity;
+                                        }
+                                        <li class="list-group-item d-flex justify-content-between bg-light">
+                                            <small class="text-info"> Сумма к оплате (UZS)</small>
+                                            <strong class="text-info">@orderTotal Сум</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-12 col-md-5 offset-md-7">
+                            <button type="submit" class="btn btn-primary form-control">Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
